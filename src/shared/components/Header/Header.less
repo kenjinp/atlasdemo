@@ -1,0 +1,19 @@
+@import '../../lib.less';
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  box-sizing: content-box;
+  height: 32px;
+}
+
+.logo-block {
+  .logo {
+    height: 1em;
+  }
+  &.-left {
+    flex-grow: 1;
+    margin-left: 1em;
+  }
+}
