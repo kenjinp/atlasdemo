@@ -1,0 +1,22 @@
+@import '../../../lib.less';
+
+.context-menu {
+  background-color: #191e28;
+  // background-image: linear-gradient(90deg, #191e28 0%, #0b2940fc 74%);
+  background-image: linear-gradient(#152231 0%, #191e28 74%);
+  padding: 1em;
+  min-width: 280px;
+  width: auto;
+  border-radius: 2px;
+  box-shadow: 0px 10px 10px #00000045;
+  .ant-menu-item {
+    border-radius: 2px;
+    &:hover {
+      background-color: #ffffff10;
+    }
+    &:active,
+    &.ant-menu-item-selected {
+      background-color: #ffffff30 !important;
+    }
+  }
+}

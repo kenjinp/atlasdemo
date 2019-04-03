@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { debounce } from '../utils';
 
 export default function useHover(callback?: (isHovering: boolean) => void) {
   const [value, setValue] = React.useState(false);

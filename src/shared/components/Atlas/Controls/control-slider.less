@@ -10,16 +10,21 @@
   border-radius: 2px;
   width: calc(100% - 0.4em);
   opacity: 0.3;
+  box-shadow: 0px 4px 6px 3px #00000040;
+  & i {
+    pointer-events: none;
+  }
   &:hover {
+    box-shadow: none;
     opacity: 1;
     &.x i {
-      color: red;
+      color: rgb(255, 0, 0);
     }
     &.y i {
-      color: green;
+      color: rgb(0, 255, 0);
     }
     &.z i {
-      color: blue;
+      color: rgb(0, 0, 255);
     }
   }
 }

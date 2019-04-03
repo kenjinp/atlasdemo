@@ -16,7 +16,11 @@ const ControlSlider: React.FunctionComponent<ControlSliderProps> = props => {
     controlMethod(d * ratio);
   });
   return (
-    <div {...bind} className={`control-slider ${axis}`}>
+    <div
+      {...bind}
+      className={`control-slider ${axis}`}
+      // onClick={() => controlMethod(1 * ratio)}
+    >
       <Icon type="left" />
       {children}
       <Icon type="right" />
