@@ -70,7 +70,7 @@ class Atlas {
     const plane = planeCollection.getPlane();
     // plane.disable()
 
-    console.log(allenAverageModel);
+    // console.log(allenAverageModel);
 
     // plane.setShaderId('dev')
     // limit the max level of detail to render
@@ -102,7 +102,7 @@ class Atlas {
       threeContext
     );
     morphologyCollection.on('ready', () => {
-      console.log(morphologyCollection);
+      // console.log(morphologyCollection);
       morphologyCollection.showMorphologyById('AA0046', 0xff0000);
       // morphologyCollection.hideMorphologyById('AA0046')
     });
