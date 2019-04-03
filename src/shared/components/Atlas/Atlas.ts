@@ -51,12 +51,14 @@ const datasetConfig = {
 };
 
 class Atlas {
+  public plane: any;
+  public slicer: any;
   constructor(element: HTMLDivElement) {
     // @ts-ignore
     const threeContext = new ThreeOctreePlane.ThreeContext(element);
 
     // @ts-ignore
-    const slicer = new ThreeOctreePlane.Slicer(threeContext);
+    const slicer = (this.slicer = new ThreeOctreePlane.Slicer(threeContext));
 
     const vdc = slicer.getVolumeDatasetCollection();
     const allenAverageModel = vdc.createVolumeDataset(
@@ -67,7 +69,8 @@ class Atlas {
     );
 
     const planeCollection = slicer.getPlaneCollection();
-    const plane = planeCollection.getPlane();
+    const plane = (this.plane = planeCollection.getPlane());
+    plane.setHelperVisibility(false);
     // plane.disable()
 
     // console.log(allenAverageModel);
@@ -98,14 +101,14 @@ class Atlas {
 
     // loading morphology listing file
     // @ts-ignore
-    const morphologyCollection = new ThreeOctreePlane.MorphologyCollection(
-      threeContext
-    );
-    morphologyCollection.on('ready', () => {
-      // console.log(morphologyCollection);
-      morphologyCollection.showMorphologyById('AA0046', 0xff0000);
-      // morphologyCollection.hideMorphologyById('AA0046')
-    });
+    // const morphologyCollection = new ThreeOctreePlane.MorphologyCollection(
+    //   threeContext
+    // );
+    // morphologyCollection.on('ready', () => {
+    //   // console.log(morphologyCollection);
+    //   morphologyCollection.showMorphologyById('AA0046', 0xff0000);
+    //   // morphologyCollection.hideMorphologyById('AA0046')
+    // });
   }
 }
 

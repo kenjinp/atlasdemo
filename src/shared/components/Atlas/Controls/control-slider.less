@@ -1,6 +1,6 @@
 .control-slider {
   text-align: center;
-  cursor: pointer;
+  cursor: ew-resize;
   background-color: #d1d1d14a;
   transition: 0.3s;
   padding: 1em;
@@ -12,5 +12,14 @@
   opacity: 0.3;
   &:hover {
     opacity: 1;
+    &.x i {
+      color: red;
+    }
+    &.y i {
+      color: green;
+    }
+    &.z i {
+      color: blue;
+    }
   }
 }
