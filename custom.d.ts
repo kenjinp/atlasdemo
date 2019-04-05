@@ -63,3 +63,13 @@ declare module 'express-prom-bundle' {
 }
 
 declare module 'threeoctreeplane/dist/threeoctreeplane.js' {}
+
+declare function colorMap(options: {
+  colormap: string;
+  nshades: number;
+  format: string;
+  alpha: number;
+}): string[];
+declare module 'colormap' {
+  export = colorMap;
+}

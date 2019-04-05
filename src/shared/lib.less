@@ -3,9 +3,10 @@
 @pink-color: #f27d91;
 @link-color: @text-color; // link color
 @link-hover-color: @heading-color;
+@info-color: @primary-color;
 @success-color: #52c41a; // success state color
 @warning-color: #faad14; // warning state color
-@error-color: #f5222d; // error state color
+@error-color: @pink-color; // error state color
 @font-size-base: 14px; // major text font size
 @heading-color: #fff; // heading text color
 @text-color: #49546c; // major text color
@@ -29,6 +30,9 @@
 @maxConstrainedItemWidth: 980px;
 @link-hover-color: #28c9fa;
 
+@pink: #f27d91;
+@purple: #7984f4;
+
 body {
   background-color: @primary-background;
   background-size: cover;
@@ -48,6 +52,16 @@ a {
 }
 
 // Mixins
+.card () {
+  overflow: hidden;
+  background-color: #191e28;
+  // background-image: linear-gradient(90deg, #191e28 0%, #0b2940fc 74%);
+  // background-image: linear-gradient(#152231 0%, #191e28 74%);
+  background-image: linear-gradient(#f4f4f4 0%, #c7c7c8 80%);
+  border-radius: 2px;
+  box-shadow: 0px 0px 10px 5px #00000050;
+}
+
 .unstyleList() {
   list-style: none;
 }

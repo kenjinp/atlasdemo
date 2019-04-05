@@ -53,6 +53,7 @@ const datasetConfig = {
 class Atlas {
   public plane: any;
   public slicer: any;
+  public morphologyCollection: any;
   constructor(element: HTMLDivElement) {
     // @ts-ignore
     const threeContext = new ThreeOctreePlane.ThreeContext(element);
@@ -101,14 +102,14 @@ class Atlas {
 
     // loading morphology listing file
     // @ts-ignore
-    // const morphologyCollection = new ThreeOctreePlane.MorphologyCollection(
-    //   threeContext
-    // );
-    // morphologyCollection.on('ready', () => {
-    //   // console.log(morphologyCollection);
-    //   morphologyCollection.showMorphologyById('AA0046', 0xff0000);
-    //   // morphologyCollection.hideMorphologyById('AA0046')
-    // });
+    const morphologyCollection = (this.morphologyCollection = new ThreeOctreePlane.MorphologyCollection(
+      threeContext
+    ));
+    morphologyCollection.on('ready', () => {
+      // console.log(morphologyCollection);
+      // morphologyCollection.showMorphologyById('AA0046', 0xff0000);
+      // morphologyCollection.hideMorphologyById('AA0046')
+    });
   }
 }
 

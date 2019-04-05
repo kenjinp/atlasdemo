@@ -1,0 +1,50 @@
+@import '../../../lib.less';
+
+.icon {
+  height: 1.5em;
+  margin: 0 1em;
+  display: inline-block;
+  position: relative;
+  top: 6px;
+  fill: @primary-color;
+  color: @primary-color;
+  svg {
+    height: 1.5em;
+  }
+}
+
+.search-menu {
+  .card();
+  min-width: 280px;
+  width: 400px;
+  position: absolute;
+  .handle {
+    cursor: grab;
+  }
+  .title {
+    text-align: center;
+    color: @text-color-secondary;
+  }
+  .body {
+    .search {
+      padding: 1em 0;
+    }
+    .list {
+      max-height: 50vh;
+      overflow-y: scroll;
+      background-color: #ffffff50;
+      border-radius: 2px;
+      padding: 1em;
+    }
+  }
+  .ant-menu-item {
+    border-radius: 2px;
+    &:hover {
+      background-color: #ffffff10;
+    }
+    &:active,
+    &.ant-menu-item-selected {
+      background-color: #ffffff30 !important;
+    }
+  }
+}

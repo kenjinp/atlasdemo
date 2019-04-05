@@ -5,6 +5,9 @@ import AtlasComponent from '../components/Atlas';
 import SliderMenu from '../components/Atlas/Controls/SliderMenu';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import AtlasContextMenu from '../components/Atlas/ContextMenu';
+import SearchMenu from '../components/Atlas/SearchMenu';
+import { notification, Progress } from 'antd';
+
 interface HomeProps {}
 
 const Home: React.FunctionComponent<HomeProps> = ({}) => {
@@ -14,10 +17,110 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
   const [contrast, setContrast] = React.useState(1.0);
   const [opacity, setOpacity] = React.useState(1.0);
   const [brightness, setBrightness] = React.useState(0);
+  const [colormap, setColormap] = React.useState<string>('greys');
+  const [query, setQuery] = React.useState<string>('');
+  const [queryResults, setQueryResults] = React.useState<any[]>([]);
+  const [
+    morphologyVisibility,
+    setMorphologyCollectionVisibility,
+  ] = React.useState<string[]>([]);
 
   if (atlas) {
     // console.log('styles', atlas.plane.getColormapStyles());
   }
+
+  const setMorphologyVisibility = (name: string) => {
+    const index = morphologyVisibility.indexOf(name);
+    console.log('setMorpholgoyVisibility', name);
+    if (index >= 0) {
+      const copy = [...morphologyVisibility];
+      copy.splice(index, 1);
+      // we have to remove
+      console.log('removing', name);
+      atlas.morphologyCollection.hideMorphologyById(name);
+      console.log(atlas.morphologyCollection);
+      return setMorphologyCollectionVisibility(copy);
+    }
+    // we hav to add
+    console.log('adding', name, atlas.morphologyCollection);
+    const lowerCaseName = `${name}`.toLowerCase();
+    console.log(
+      atlas.morphologyCollection._collection,
+      atlas.morphologyCollection._collection[lowerCaseName],
+      lowerCaseName,
+      name
+    );
+    if (
+      atlas.morphologyCollection &&
+      atlas.morphologyCollection._collection[lowerCaseName] &&
+      atlas.morphologyCollection._collection[lowerCaseName].mesh
+    ) {
+      notification.info({
+        key: name,
+        message: 'Morphology Loaded',
+      });
+    } else {
+      notification.info({
+        key: name,
+        message: 'Morphology Loading',
+        description: `Preparing morphology`,
+      });
+    }
+    atlas.morphologyCollection.showMorphologyById(name);
+    return setMorphologyCollectionVisibility([...morphologyVisibility, name]);
+  };
+
+  React.useEffect(() => {
+    if (!atlas) {
+      return;
+    }
+    atlas.morphologyCollection.on(
+      'error',
+      (data: { error: Error; name: string }) => {
+        const { error, name } = data;
+        notification.error({
+          key: name,
+          message: 'Morphology Loading',
+          description: error.message,
+        });
+      }
+    );
+    // @ts-ignore
+    atlas.morphologyCollection.on('loading', (morphologyInfo, progressInfo) => {
+      const name = morphologyInfo.name;
+      console.log('name', name);
+      const percent = ~~(progressInfo.progress * 100);
+      if (progressInfo.step === 'done') {
+        notification.close(name);
+      } else {
+        notification.open({
+          key: name,
+          message: `Morphology ${progressInfo.step}`,
+          description: (
+            <div>
+              <Progress percent={percent} status="active" />
+            </div>
+          ),
+        });
+      }
+    });
+  }, [atlas]);
+
+  React.useEffect(() => {
+    if (!atlas) {
+      return;
+    }
+    setQueryResults(
+      atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
+    );
+  }, [query, atlas]);
+
+  React.useEffect(() => {
+    if (!atlas) {
+      return;
+    }
+    atlas.plane.useColormap(colormap);
+  }, [colormap, atlas]);
 
   React.useEffect(() => {
     if (!atlas) {
@@ -65,6 +168,10 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
             atlas.plane.alignOnVoxelSpace();
           }
         }}
+        colormap={{
+          value: colormap,
+          set: setColormap,
+        }}
         brightness={{
           value: brightness,
           set: setBrightness,
@@ -86,6 +193,14 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
           set: setShowPlane,
         }}
       />
+      {atlas && (
+        <SearchMenu
+          queryResults={queryResults}
+          queryFunction={setQuery}
+          morphologyVisibility={morphologyVisibility}
+          setMorphologyVisibility={setMorphologyVisibility}
+        />
+      )}
       {atlas && (
         <SliderMenu
           showControls={showControls}

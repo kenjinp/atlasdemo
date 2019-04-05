@@ -82,16 +82,16 @@ const SliderMenu: React.FunctionComponent<ControlSliderProps> = props => {
     leave: { opacity: 0 },
   });
   return (
-    <div className="slider-menu">
+    <div {...bind} className="slider-menu">
       {boolTransitions.map(
         ({ item, key, props }) =>
           item && (
-            <a.div style={props}>
+            <a.div style={props} key={'tip'}>
               <p>slide or drag to position slicer</p>
             </a.div>
           )
       )}
-      <div {...bind} className="menu">
+      <div className="menu">
         {transitions.map(({ item, props, key }) => (
           <a.div key={key} style={{ ...props, width: '33%' }}>
             {item}

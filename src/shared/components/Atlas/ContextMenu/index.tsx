@@ -4,6 +4,10 @@ import { Icon, Switch, Menu, Slider, InputNumber, Col, Row } from 'antd';
 import { useTransition, animated, config } from 'react-spring';
 import { ContextMenu } from 'react-contextmenu';
 import MenuItem from 'antd/lib/menu/MenuItem';
+import ColorPreview from '../../ColorMap/color-preview';
+import SubMenu from './SubMenu';
+
+const MenuItemGroup = Menu.ItemGroup;
 
 interface BooleanState {
   value: boolean;
@@ -15,6 +19,11 @@ interface NumberState {
   set: (value: number) => void;
 }
 
+interface StringState {
+  value: string;
+  set: (value: string) => void;
+}
+
 interface AtlasContextMenuProps {
   // children: React.ReactChild;
   controls: BooleanState;
@@ -22,6 +31,7 @@ interface AtlasContextMenuProps {
   brightness: NumberState;
   contrast: NumberState;
   opacity: NumberState;
+  colormap: StringState;
   align: VoidFunction;
   id: string;
 }
@@ -37,6 +47,7 @@ const AtlasContextMenu: React.FunctionComponent<
     brightness,
     contrast,
     opacity,
+    colormap,
   } = props;
   const [show, setShow] = React.useState(false);
   const transitions = useTransition(show, null, {
@@ -55,21 +66,35 @@ const AtlasContextMenu: React.FunctionComponent<
           item && (
             <animated.div style={props}>
               <div className="context-menu">
+                <div className="draggable">
+                  <h3 className="title">Menu</h3>
+                </div>
+                <SubMenu />
                 <Menu>
                   <MenuItem onClick={align}>Reset Alignment</MenuItem>
-                  <MenuItem>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <div>Colormaps</div>{' '}
-                      <div>
-                        <Icon type="arrow-right" />
-                      </div>
-                    </div>
-                  </MenuItem>
+                  {/* <SubMenu
+                    key="sub1"
+                    title={
+                      <Row>
+                        <Col span={12}>Colormaps</Col>
+                        <Col span={12}>
+                          <ColorPreview name={colormap.value} />
+                        </Col>
+                      </Row>
+                    }
+                  >
+                    <MenuItemGroup title="colormaps">
+                      <Menu.Item key="1" onClick={() => colormap.set('jet')}>
+                        jet
+                      </Menu.Item>
+                      <Menu.Item key="1" onClick={() => colormap.set('greys')}>
+                        greys
+                      </Menu.Item>
+                      <Menu.Item key="2" onClick={() => colormap.set('plasma')}>
+                        plasma
+                      </Menu.Item>
+                    </MenuItemGroup>
+                  </SubMenu> */}
                   <MenuItem>
                     <Row>
                       <Col span={12}>Brighness</Col>
