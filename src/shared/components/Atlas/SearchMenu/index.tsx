@@ -24,7 +24,6 @@ interface SearchMenuProps {
 }
 
 const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
-  console.log('THE ONE', data);
   const {
     queryResults,
     queryFunction,

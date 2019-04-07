@@ -34,7 +34,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
   }
 
   const setRegionVisibility = (acronym: string) => {
-    console.log(atlas);
     const index = regionVisibility.indexOf(acronym);
     if (index >= 0) {
       const copy = [...regionVisibility];
