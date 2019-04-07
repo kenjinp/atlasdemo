@@ -20,36 +20,28 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
   const [colormap, setColormap] = React.useState<string>('greys');
   const [query, setQuery] = React.useState<string>('');
   const [queryResults, setQueryResults] = React.useState<any[]>([]);
+  const [colorMapStyles, setColorMapStyles] = React.useState<string[]>([]);
   const [
     morphologyVisibility,
     setMorphologyCollectionVisibility,
   ] = React.useState<string[]>([]);
 
-  if (atlas) {
-    // console.log('styles', atlas.plane.getColormapStyles());
+  if (atlas && !colorMapStyles.length) {
+    setColorMapStyles(atlas.plane.getColormapStyles());
   }
 
   const setMorphologyVisibility = (name: string) => {
     const index = morphologyVisibility.indexOf(name);
-    console.log('setMorpholgoyVisibility', name);
     if (index >= 0) {
       const copy = [...morphologyVisibility];
       copy.splice(index, 1);
       // we have to remove
-      console.log('removing', name);
       atlas.morphologyCollection.hideMorphologyById(name);
-      console.log(atlas.morphologyCollection);
       return setMorphologyCollectionVisibility(copy);
     }
     // we hav to add
-    console.log('adding', name, atlas.morphologyCollection);
     const lowerCaseName = `${name}`.toLowerCase();
-    console.log(
-      atlas.morphologyCollection._collection,
-      atlas.morphologyCollection._collection[lowerCaseName],
-      lowerCaseName,
-      name
-    );
+
     if (
       atlas.morphologyCollection &&
       atlas.morphologyCollection._collection[lowerCaseName] &&
@@ -88,7 +80,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     // @ts-ignore
     atlas.morphologyCollection.on('loading', (morphologyInfo, progressInfo) => {
       const name = morphologyInfo.name;
-      console.log('name', name);
       const percent = ~~(progressInfo.progress * 100);
       if (progressInfo.step === 'done') {
         notification.close(name);
@@ -192,6 +183,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
           value: showPlane,
           set: setShowPlane,
         }}
+        colorMapStyles={colorMapStyles}
       />
       {atlas && (
         <SearchMenu

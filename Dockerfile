@@ -6,7 +6,7 @@ COPY . /tmp/atlasdemo
 RUN npm ci && node --max-old-space-size=4096 `which npm` run build
 
 FROM node:10-alpine
-WORKDIR /opt/nexus
-COPY --from=builder /tmp/atlasdemo/dist /opt/nexus
+WORKDIR /opt/atlasdemo
+COPY --from=builder /tmp/atlasdemo/dist /opt/atlasdemo
 EXPOSE 8000
 ENTRYPOINT ["node", "server.js"]

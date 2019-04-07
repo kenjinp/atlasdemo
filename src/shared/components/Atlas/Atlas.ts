@@ -95,7 +95,10 @@ class Atlas {
     const regionCollection = new ThreeOctreePlane.RegionCollection(
       threeContext
     );
-    regionCollection.showRegionById('997', 0x808080); // the whole brain
+    regionCollection.on('ready', () => {
+      regionCollection.showRegionById('997'); // the whole brain
+      // regionCollection.showRegionById('385')
+    });
 
     // similarly, we can hide it
     // regionCollection.hideRegionById('997')

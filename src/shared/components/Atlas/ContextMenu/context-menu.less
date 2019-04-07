@@ -8,6 +8,13 @@
   .title {
     text-align: center;
     color: @text-color-secondary;
+    .anticon {
+      opacity: 0.5;
+      font-size: 1em;
+      position: absolute;
+      left: 30px;
+      top: 20px;
+    }
   }
   .ant-menu-item {
     border-radius: 2px;
@@ -18,5 +25,9 @@
     &.ant-menu-item-selected {
       background-color: #ffffff30 !important;
     }
+  }
+  .scroll {
+    max-height: 500px;
+    overflow-y: scroll;
   }
 }

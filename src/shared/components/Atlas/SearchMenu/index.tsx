@@ -29,7 +29,7 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
           <CollapsePanel
             header={
               <div className="handle">
-                <h3 className="title">Datasets</h3>
+                <h3 className="title">Search Datasets by Brain Region</h3>
               </div>
             }
             key="datasets-search"
@@ -49,10 +49,7 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                   const regionName = morphologyCollection[0].regionName;
                   return (
                     <Collapse bordered={false}>
-                      <CollapsePanel
-                        header={regionName}
-                        key={regionName}
-                      >
+                      <CollapsePanel header={regionName} key={regionName}>
                         <List
                           size="small"
                           dataSource={morphologyCollection}

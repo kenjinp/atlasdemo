@@ -18,8 +18,12 @@ const ColorPreview: React.FunctionComponent<ColorPreviewProps> = props => {
     <div className="color-preview">
       <div className="wrapper">
         <div className="label">{name}</div>
-        {colors.map((color: string) => (
-          <div className="color" style={{ background: color }} />
+        {colors.map((color: string, index: number) => (
+          <div
+            className="color"
+            key={`${color}-${index}`}
+            style={{ background: color }}
+          />
         ))}
       </div>
     </div>
