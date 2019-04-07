@@ -7,6 +7,12 @@ import MenuItem from 'antd/lib/menu/MenuItem';
 import ColorPreview from '../../ColorMap/color-preview';
 import SubMenu from './SubMenu';
 
+const fullscreen = () => {
+  if (document && document.body.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  }
+};
+
 interface BooleanState {
   value: boolean;
   set: (value: boolean) => void;
@@ -205,6 +211,18 @@ const AtlasContextMenu: React.FunctionComponent<
                                         size="small"
                                         onChange={controls.set}
                                         checked={controls.value}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </MenuItem>
+                                <MenuItem onClick={fullscreen}>
+                                  <Row>
+                                    <Col span={12}>fullscreen Mode</Col>
+                                    <Col span={12}>
+                                      <Switch
+                                        size="small"
+                                        onChange={fullscreen}
+                                        checked={false}
                                       />
                                     </Col>
                                   </Row>

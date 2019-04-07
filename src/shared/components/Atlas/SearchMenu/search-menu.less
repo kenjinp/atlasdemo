@@ -15,11 +15,25 @@
 
 .search-menu {
   .card();
-  min-width: 280px;
-  width: 400px;
+  min-width: 400px;
+  width: auto;
+  transition: with 0.3s ease-in-out;
   position: absolute;
+  display: flex;
+  & > .ant-collapse-borderless {
+    flex-grow: 1;
+  }
   .handle {
     cursor: grab;
+    background-color: #0000001f;
+    height: auto;
+    width: 1em;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: @primary-color;
+    }
   }
   .title {
     text-align: center;
@@ -27,6 +41,8 @@
     margin: 0;
   }
   .body {
+    max-height: 700px;
+    overflow-y: scroll;
     .search {
       padding: 1em 0;
     }

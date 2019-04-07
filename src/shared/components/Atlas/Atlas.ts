@@ -54,6 +54,7 @@ class Atlas {
   public plane: any;
   public slicer: any;
   public morphologyCollection: any;
+  public regionCollection: any;
   constructor(element: HTMLDivElement) {
     // @ts-ignore
     const threeContext = new ThreeOctreePlane.ThreeContext(element);
@@ -92,12 +93,14 @@ class Atlas {
 
     // loading a mesh using its id
     // @ts-ignore
-    const regionCollection = new ThreeOctreePlane.RegionCollection(
+    const regionCollection = (this.regionCollection = new ThreeOctreePlane.RegionCollection(
       threeContext
-    );
+    ));
     regionCollection.on('ready', () => {
-      regionCollection.showRegionById('997'); // the whole brain
-      // regionCollection.showRegionById('385')
+      regionCollection.showRegionById(997); // the whole brain
+      regionCollection.showRegionById(385);
+      // Doesn't work!
+      // regionCollection.showRegionByAcronym('fiber tracts');
     });
 
     // similarly, we can hide it

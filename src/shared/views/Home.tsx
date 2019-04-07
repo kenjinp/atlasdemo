@@ -25,10 +25,28 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     morphologyVisibility,
     setMorphologyCollectionVisibility,
   ] = React.useState<string[]>([]);
+  const [regionVisibility, setRegionCollectionVisibility] = React.useState<
+    string[]
+  >([]);
 
   if (atlas && !colorMapStyles.length) {
     setColorMapStyles(atlas.plane.getColormapStyles());
   }
+
+  const setRegionVisibility = (acronym: string) => {
+    console.log(atlas);
+    const index = regionVisibility.indexOf(acronym);
+    if (index >= 0) {
+      const copy = [...regionVisibility];
+      copy.splice(index, 1);
+      // we have to remove
+      atlas.regionCollection.hideRegionPerAcronym(acronym);
+      return setRegionCollectionVisibility(copy);
+    }
+    // we hav to add
+    atlas.regionCollection.showRegionByAcronym(acronym);
+    return setRegionCollectionVisibility([...regionVisibility, acronym]);
+  };
 
   const setMorphologyVisibility = (name: string) => {
     const index = morphologyVisibility.indexOf(name);
@@ -191,6 +209,8 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
           queryFunction={setQuery}
           morphologyVisibility={morphologyVisibility}
           setMorphologyVisibility={setMorphologyVisibility}
+          regionVisibility={regionVisibility}
+          setRegionVisibility={setRegionVisibility}
         />
       )}
       {atlas && (
