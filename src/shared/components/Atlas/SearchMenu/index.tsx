@@ -8,6 +8,7 @@ import SVG from 'react-inlinesvg';
 import * as data from '../../../../../@data/allen_region_obj/1.json';
 import { Resizable, ResizableBox } from 'react-resizable';
 import '../../../../../node_modules/react-resizable/css/styles.css';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 const neuron = require('../../../../../assets/neuron.svg');
 const { TabPane } = Tabs;
@@ -24,6 +25,8 @@ interface SearchMenuProps {
 }
 
 const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
+  console.log({ data });
+
   const {
     queryResults,
     queryFunction,
@@ -39,13 +42,29 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
         name,
         id,
         children,
+        acronym,
       }: {
         name: string;
         id: number;
         children: any[];
+        acronym: string;
       }) => {
         return (
-          <TreeNode title={name} key={`${id}`}>
+          <TreeNode
+            title={
+              <div
+                onClick={(e: React.MouseEvent) => {
+                  console.log('on change whole brain');
+                  setRegionVisibility(acronym);
+                  e.stopPropagation();
+                }}
+              >
+                {name}{' '}
+                <Checkbox checked={regionVisibility.indexOf(acronym) >= 0} />
+              </div>
+            }
+            key={acronym}
+          >
             {mapRegionChildren(children)}
           </TreeNode>
         );
@@ -82,42 +101,51 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                           morphologyCollection[0].regionAcronym;
                         return (
                           <Collapse bordered={false}>
-                            <CollapsePanel header={regionName} key={regionName}>
-                              <div>
-                                <Checkbox
-                                  onChange={() =>
-                                    setRegionVisibility(regionAcronym)
-                                  }
-                                  checked={
-                                    regionVisibility.indexOf(regionAcronym) >= 0
-                                  }
+                            <CollapsePanel
+                              header={regionName}
+                              key={regionName}
+                              extra={
+                                <div
+                                  onClick={(e: React.MouseEvent) => {
+                                    setRegionVisibility(regionAcronym);
+                                    e.stopPropagation();
+                                  }}
                                 >
-                                  Show Region
-                                </Checkbox>
-                                <List
-                                  size="small"
-                                  dataSource={morphologyCollection}
-                                  renderItem={({ name }: { name: string }) => (
-                                    <List.Item>
-                                      <Tooltip title="morphology">
-                                        <Checkbox
-                                          onChange={() =>
-                                            setMorphologyVisibility(name)
-                                          }
-                                          checked={
-                                            morphologyVisibility.indexOf(
-                                              name
-                                            ) >= 0
-                                          }
-                                        >
-                                          <SVG className="icon" src={neuron} />
-                                          {name}
-                                        </Checkbox>
-                                      </Tooltip>
-                                    </List.Item>
-                                  )}
-                                />
-                              </div>
+                                  <Checkbox
+                                    // onChange={(e: CheckboxChangeEvent) => {
+                                    //   setRegionVisibility(regionAcronym);
+                                    //   e.stopPropagation();
+                                    // }}
+                                    checked={
+                                      regionVisibility.indexOf(regionAcronym) >=
+                                      0
+                                    }
+                                  />
+                                </div>
+                              }
+                            >
+                              <List
+                                size="small"
+                                dataSource={morphologyCollection}
+                                renderItem={({ name }: { name: string }) => (
+                                  <List.Item>
+                                    <Tooltip title="morphology">
+                                      <Checkbox
+                                        onChange={() =>
+                                          setMorphologyVisibility(name)
+                                        }
+                                        checked={
+                                          morphologyVisibility.indexOf(name) >=
+                                          0
+                                        }
+                                      >
+                                        <SVG className="icon" src={neuron} />
+                                        {name}
+                                      </Checkbox>
+                                    </Tooltip>
+                                  </List.Item>
+                                )}
+                              />
                             </CollapsePanel>
                           </Collapse>
                         );
@@ -127,8 +155,31 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                 </TabPane>
                 <TabPane tab="Tree" key="2">
                   <div className="body">
-                    <Tree>
-                      <TreeNode title="Whole Brain" key="0-0">
+                    <Tree
+                    // onCheck={(selectedKeys: any, e) => {
+                    //   console.log(selectedKeys, e);
+                    //   // (selectedKeys as string[]).forEach(acronym => {
+                    //     setRegionVisibility(acronym);
+                    //   // });
+                    // }}
+                    >
+                      <TreeNode
+                        title={
+                          <div
+                            onClick={(e: React.MouseEvent) => {
+                              console.log('on change whole brain');
+                              setRegionVisibility('root');
+                              e.stopPropagation();
+                            }}
+                          >
+                            Whole Brain{' '}
+                            <Checkbox
+                              checked={regionVisibility.indexOf('root') >= 0}
+                            />
+                          </div>
+                        }
+                        key="root"
+                      >
                         {mapRegionChildren(data.children)}
                       </TreeNode>
                     </Tree>

@@ -96,9 +96,10 @@ class Atlas {
     const regionCollection = (this.regionCollection = new ThreeOctreePlane.RegionCollection(
       threeContext
     ));
+
     regionCollection.on('ready', () => {
       regionCollection.showRegionById(997); // the whole brain
-      regionCollection.showRegionById(385);
+      // regionCollection.showRegionById(385);
       // Doesn't work!
       // regionCollection.showRegionByAcronym('fiber tracts');
     });
