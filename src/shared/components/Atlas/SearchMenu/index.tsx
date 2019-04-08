@@ -25,8 +25,6 @@ interface SearchMenuProps {
 }
 
 const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
-  console.log({ data });
-
   const {
     queryResults,
     queryFunction,
@@ -54,7 +52,6 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
             title={
               <div
                 onClick={(e: React.MouseEvent) => {
-                  console.log('on change whole brain');
                   setRegionVisibility(acronym);
                   e.stopPropagation();
                 }}
@@ -167,7 +164,6 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                         title={
                           <div
                             onClick={(e: React.MouseEvent) => {
-                              console.log('on change whole brain');
                               setRegionVisibility('root');
                               e.stopPropagation();
                             }}

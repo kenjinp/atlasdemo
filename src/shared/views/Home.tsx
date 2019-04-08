@@ -35,11 +35,9 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
 
   const setRegionVisibility = (acronym: string) => {
     const index = regionVisibility.indexOf(acronym);
-    console.log(acronym, regionVisibility);
     if (index >= 0) {
       const copy = [...regionVisibility];
       copy.splice(index, 1);
-      console.log(regionVisibility, index, copy);
       // we have to remove
       atlas.regionCollection.hideRegionPerAcronym(acronym);
       return setRegionCollectionVisibility(copy);
