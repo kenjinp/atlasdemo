@@ -174,7 +174,7 @@ const AtlasContextMenu: React.FunctionComponent<
                                     <Col span={12}>
                                       <Slider
                                         min={0}
-                                        max={1}
+                                        max={5}
                                         step={0.01}
                                         onChange={value => {
                                           // @ts-ignore

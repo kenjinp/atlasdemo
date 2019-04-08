@@ -66,12 +66,12 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     ) {
       notification.info({
         key: name,
-        message: 'Morphology Loaded',
+        message: `Morphology ${name} Loaded`,
       });
     } else {
       notification.info({
         key: name,
-        message: 'Morphology Loading',
+        message: `Morphology ${name} Loading`,
         description: `Preparing morphology`,
       });
     }
@@ -89,7 +89,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
         const { error, name } = data;
         notification.error({
           key: name,
-          message: 'Morphology Loading',
+          message: `Morphology ${name} Loading`,
           description: error.message,
         });
       }
@@ -103,7 +103,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       } else {
         notification.open({
           key: name,
-          message: `Morphology ${progressInfo.step}`,
+          message: `Morphology ${name} ${progressInfo.step}`,
           description: (
             <div>
               <Progress percent={percent} status="active" />
@@ -118,6 +118,10 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     if (!atlas) {
       return;
     }
+    console.log({
+      query,
+      results: atlas.morphologyCollection.getMorphologiesPerRegionQuery(query),
+    });
     setQueryResults(
       atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
     );
@@ -144,12 +148,26 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     atlas.plane.setContrast(contrast);
   }, [contrast, atlas]);
 
+  // React.useEffect(() => {
+  //   if (!atlas) {
+  //     return;
+  //   }
+
+  //   atlas.regionCollection.regionVisibility
+  // }, [opacity, atlas]);
+
   React.useEffect(() => {
     if (!atlas) {
       return;
     }
-    atlas.plane.setOpacity(opacity);
-  }, [opacity, atlas]);
+    regionVisibility.forEach(acronym => {
+      const data = atlas.regionCollection.getRegionDataPerName(acronym);
+      console.log({ data, acronym });
+      if (data) {
+        atlas.regionCollection.setOpacity(opacity, data.id);
+      }
+    });
+  }, [regionVisibility, atlas, opacity]);
 
   React.useEffect(() => {
     if (!atlas) {
