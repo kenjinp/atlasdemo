@@ -118,10 +118,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     if (!atlas) {
       return;
     }
-    console.log({
-      query,
-      results: atlas.morphologyCollection.getMorphologiesPerRegionQuery(query),
-    });
+
     setQueryResults(
       atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
     );
@@ -162,7 +159,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     }
     regionVisibility.forEach(acronym => {
       const data = atlas.regionCollection.getRegionDataPerName(acronym);
-      console.log({ data, acronym });
       if (data) {
         atlas.regionCollection.setOpacity(opacity, data.id);
       }
