@@ -39,9 +39,10 @@ app.get(`${base}/status`, (req, res) => res.send('OK'));
 app.use(promBundle({ includeMethod: true, metricsPath: `${base}/metrics` }));
 // parse cookies
 app.use(cookieParser());
+
 // server static assets from the /public directory
 app.use(`${base}/public`, express.static(join(__dirname, 'public')));
-app.use(`${base}/datasets`, express.static(resolve(__dirname, '../../assets')));
+app.use(`${base}/datasets`, express.static(resolve(__dirname, '../@data')));
 
 // if in Dev mode, setup HMR and all the fancy stuff
 if (process.env.NODE_ENV !== 'production') {
