@@ -148,7 +148,7 @@ class Atlas {
     camera.updateProjectionMatrix();
 
     // @ts-ignore
-    const slicer = new VolumeSlicer.Slicer({ threeContext: threeContext });
+    const slicer = new VolumeSlicer.Slicer({ threeContext });
 
     const vdc = slicer.getVolumeDatasetCollection();
     const allenAverageModel = vdc.createVolumeDataset(
@@ -185,8 +185,7 @@ class Atlas {
 
     // TODO
     // @ts-ignore
-    planeCollection.forEach(function(p, i) {
-      // @ts-ignore
+    planeCollection.forEach((p, i) => {
       slicer.computeIntersectedCuboids(p, allenAverageModel.getName(), false);
     });
 
