@@ -53,7 +53,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       const copy = [...morphologyVisibility];
       copy.splice(index, 1);
       // we have to remove
-      atlas.morphologyCollection.hideMorphologyById(name);
+      // atlas.morphologyCollection.hideMorphologyById(name);
       return setMorphologyCollectionVisibility(copy);
     }
     // we hav to add
@@ -75,7 +75,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
         description: `Preparing morphology`,
       });
     }
-    atlas.morphologyCollection.showMorphologyById(name);
+    // atlas.morphologyCollection.showMorphologyById(name);
     return setMorphologyCollectionVisibility([...morphologyVisibility, name]);
   };
 
@@ -83,35 +83,35 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     if (!atlas) {
       return;
     }
-    atlas.morphologyCollection.on(
-      'error',
-      (data: { error: Error; name: string }) => {
-        const { error, name } = data;
-        notification.error({
-          key: name,
-          message: `Morphology ${name} Loading`,
-          description: error.message,
-        });
-      }
-    );
+    // atlas.morphologyCollection.on(
+    //   'error',
+    //   (data: { error: Error; name: string }) => {
+    //     const { error, name } = data;
+    //     notification.error({
+    //       key: name,
+    //       message: `Morphology ${name} Loading`,
+    //       description: error.message,
+    //     });
+    //   }
+    // );
     // @ts-ignore
-    atlas.morphologyCollection.on('loading', (morphologyInfo, progressInfo) => {
-      const name = morphologyInfo.name;
-      const percent = ~~(progressInfo.progress * 100);
-      if (progressInfo.step === 'done') {
-        notification.close(name);
-      } else {
-        notification.open({
-          key: name,
-          message: `Morphology ${name} ${progressInfo.step}`,
-          description: (
-            <div>
-              <Progress percent={percent} status="active" />
-            </div>
-          ),
-        });
-      }
-    });
+    // atlas.morphologyCollection.on('loading', (morphologyInfo, progressInfo) => {
+    //   const name = morphologyInfo.name;
+    //   const percent = ~~(progressInfo.progress * 100);
+    //   if (progressInfo.step === 'done') {
+    //     notification.close(name);
+    //   } else {
+    //     notification.open({
+    //       key: name,
+    //       message: `Morphology ${name} ${progressInfo.step}`,
+    //       description: (
+    //         <div>
+    //           <Progress percent={percent} status="active" />
+    //         </div>
+    //       ),
+    //     });
+    //   }
+    // });
   }, [atlas]);
 
   React.useEffect(() => {
@@ -119,9 +119,9 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       return;
     }
 
-    setQueryResults(
-      atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
-    );
+    // setQueryResults(
+    //   atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
+    // );
   }, [query, atlas]);
 
   React.useEffect(() => {

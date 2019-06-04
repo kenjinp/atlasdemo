@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join, resolve } from 'path';
 import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
@@ -41,6 +41,7 @@ app.use(promBundle({ includeMethod: true, metricsPath: `${base}/metrics` }));
 app.use(cookieParser());
 // server static assets from the /public directory
 app.use(`${base}/public`, express.static(join(__dirname, 'public')));
+app.use(`${base}/datasets`, express.static(resolve(__dirname, '../../assets')));
 
 // if in Dev mode, setup HMR and all the fancy stuff
 if (process.env.NODE_ENV !== 'production') {

@@ -33,10 +33,12 @@
     "identicon.js": "^2.3.3",
     "jwt-decode": "^2.2.0",
     "md5": "^2.2.1",
+    "meshcollection": "^0.1.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "object-hash": "^1.3.1",
     "oidc-client": "^1.7.0",
+    "oneallenbrainontology": "^0.1.3",
     "prom-client": "^11.2.1",
     "query-string": "^6.3.0",
     "react": "^16.8.4",
@@ -56,7 +58,8 @@
     "redux-oidc": "^3.1.2",
     "redux-thunk": "^2.3.0",
     "three": "^0.103.0",
-    "threeoctreeplane": "file:./@slicer"
+    "threecontext": "^0.1.0",
+    "volumeslicer": "^0.1.15"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

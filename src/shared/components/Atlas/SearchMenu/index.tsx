@@ -5,7 +5,7 @@ import Search from 'antd/lib/input/Search';
 import { Collapse, List, Checkbox, Tooltip, Tabs, Tree } from 'antd';
 import CollapsePanel from 'antd/lib/collapse/CollapsePanel';
 import SVG from 'react-inlinesvg';
-import * as data from '../../../../../@data/allen_region_obj/1.json';
+import * as data from '../../../../../@data/regionMeshes/1.json';
 import { Resizable, ResizableBox } from 'react-resizable';
 import '../../../../../node_modules/react-resizable/css/styles.css';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
