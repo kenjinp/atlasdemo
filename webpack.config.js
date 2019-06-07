@@ -17,7 +17,7 @@ const config = [
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
-    devtool: 'source-map',
+    devtool: devMode ? 'source-map' : false,
     mode: 'production',
     module: {
       rules: [
@@ -68,7 +68,7 @@ const config = [
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
-    devtool: 'source-map',
+    devtool: devMode ? 'source-map' : false,
     module: {
       rules: [
         {

@@ -80,7 +80,7 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
               key="datasets-search"
             >
               <Tabs defaultActiveKey="1">
-                <TabPane tab="Search" key="1">
+                {/* <TabPane tab="Search" key="1">
                   <div className="body">
                     <Search
                       className="search"
@@ -149,8 +149,8 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                       }}
                     />
                   </div>
-                </TabPane>
-                <TabPane tab="Tree" key="2">
+                </TabPane> */}
+                <TabPane tab="Tree" key="1">
                   <div className="body">
                     <Tree
                     // onCheck={(selectedKeys: any, e) => {

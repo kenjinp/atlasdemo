@@ -40,6 +40,9 @@ app.use(promBundle({ includeMethod: true, metricsPath: `${base}/metrics` }));
 // parse cookies
 app.use(cookieParser());
 
+console.log('public directory', join(__dirname, 'public'));
+console.log('datasets', resolve(__dirname, '../@data'));
+console.log('base', base);
 // server static assets from the /public directory
 app.use(`${base}/public`, express.static(join(__dirname, 'public')));
 app.use(`${base}/datasets`, express.static(resolve(__dirname, '../@data')));
