@@ -120,6 +120,7 @@ const datasetConfig = {
 class Atlas {
   public plane: any;
   public slicer: any;
+  public planeCollection: any;
   public morphologyCollection: any;
   public regionCollection: any;
   constructor(element: HTMLDivElement) {
@@ -164,7 +165,7 @@ class Atlas {
     slicer.adaptPlaneToDataset(/* the default plane */);
     slicer.computeIntersectedCuboids(null, allenAverageModel.getName(), false);
 
-    const planeCollection = slicer.getPlaneCollection();
+    const planeCollection = (this.planeCollection = slicer.getPlaneCollection());
     planeCollection.getPlane().disable();
 
     // create 3 planes to put in a group

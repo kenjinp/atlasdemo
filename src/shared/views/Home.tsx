@@ -128,21 +128,21 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     if (!atlas) {
       return;
     }
-    atlas.plane.useColormap(colormap);
+    atlas.planeCollection.useColormap(colormap);
   }, [colormap, atlas]);
 
   React.useEffect(() => {
     if (!atlas) {
       return;
     }
-    atlas.plane.setBrightness(brightness);
+    atlas.planeCollection.setBrightness(brightness);
   }, [brightness, atlas]);
 
   React.useEffect(() => {
     if (!atlas) {
       return;
     }
-    atlas.plane.setContrast(contrast);
+    atlas.planeCollection.setContrast(contrast);
   }, [contrast, atlas]);
 
   // React.useEffect(() => {
@@ -170,9 +170,9 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       return;
     }
     if (showPlane) {
-      atlas.plane.enable();
+      atlas.planeCollection.enableAll();
     } else {
-      atlas.plane.disable();
+      atlas.planeCollection.disableAll();
     }
   }, [showPlane, atlas]);
 
@@ -229,18 +229,28 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       {atlas && (
         <SliderMenu
           showControls={showControls}
-          onHover={atlas.plane.setHelperVisibility.bind(atlas.plane)}
+          onHover={atlas.planeCollection.setHelperVisibility.bind(
+            atlas.planeCollection
+          )}
           planeControls={{
-            translateAlongNormal: atlas.plane.translateAlongNormal.bind(
-              atlas.plane
+            translateAlongNormal: atlas.planeCollection.translateAlongNormal.bind(
+              atlas.planeCollection
             ),
-            translateAlongUp: atlas.plane.translateAlongUp.bind(atlas.plane),
-            translateAlongRight: atlas.plane.translateAlongRight.bind(
-              atlas.plane
+            translateAlongUp: atlas.planeCollection.translateAlongUp.bind(
+              atlas.planeCollection
             ),
-            rotateOnNormal: atlas.plane.rotateOnNormal.bind(atlas.plane),
-            rotateOnUp: atlas.plane.rotateOnUp.bind(atlas.plane),
-            rotateOnRight: atlas.plane.rotateOnRight.bind(atlas.plane),
+            translateAlongRight: atlas.planeCollection.translateAlongRight.bind(
+              atlas.planeCollection
+            ),
+            rotateOnNormal: atlas.planeCollection.rotateOnNormal.bind(
+              atlas.planeCollection
+            ),
+            rotateOnUp: atlas.planeCollection.rotateOnUp.bind(
+              atlas.planeCollection
+            ),
+            rotateOnRight: atlas.planeCollection.rotateOnRight.bind(
+              atlas.planeCollection
+            ),
           }}
         />
       )}
