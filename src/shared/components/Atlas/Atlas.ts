@@ -201,7 +201,9 @@ class Atlas {
 
     // loading a mesh using its id
     // @ts-ignore
-    const regionCollection = (this.regionCollection = new RegionCollection());
+    const regionCollection = (this.regionCollection = new RegionCollection(
+      threeContext
+    ));
   }
 }
 

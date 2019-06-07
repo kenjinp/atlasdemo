@@ -168,7 +168,7 @@ const AtlasContextMenu: React.FunctionComponent<
                                     </Col>
                                   </Row>
                                 </MenuItem>
-                                <MenuItem>
+                                {/* <MenuItem>
                                   <Row>
                                     <Col span={12}>Opacity</Col>
                                     <Col span={12}>
@@ -184,7 +184,7 @@ const AtlasContextMenu: React.FunctionComponent<
                                       />
                                     </Col>
                                   </Row>
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem
                                   onClick={() =>
                                     showPlane.set(!showPlane.value)
