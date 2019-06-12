@@ -6,12 +6,7 @@ import { ContextMenu } from 'react-contextmenu';
 import MenuItem from 'antd/lib/menu/MenuItem';
 import ColorPreview from '../../ColorMap/color-preview';
 import SubMenu from './SubMenu';
-
-const fullscreen = () => {
-  if (document && document.body.requestFullscreen) {
-    document.documentElement.requestFullscreen();
-  }
-};
+import toggleFullscreen, { isFullscreen } from 'toggle-fullscreen';
 
 interface BooleanState {
   value: boolean;
@@ -119,9 +114,6 @@ const AtlasContextMenu: React.FunctionComponent<
                                 <h3 className="title">Menu</h3>
                               </div>
                               <Menu>
-                                <MenuItem onClick={align}>
-                                  Reset Alignment
-                                </MenuItem>
                                 <MenuItem
                                   onClick={() => {
                                     goTo('/colormaps');
@@ -215,18 +207,17 @@ const AtlasContextMenu: React.FunctionComponent<
                                     </Col>
                                   </Row>
                                 </MenuItem>
-                                <MenuItem onClick={fullscreen}>
-                                  <Row>
-                                    <Col span={12}>fullscreen Mode</Col>
-                                    <Col span={12}>
-                                      <Switch
-                                        size="small"
-                                        onChange={fullscreen}
-                                        checked={false}
-                                      />
-                                    </Col>
-                                  </Row>
-                                </MenuItem>
+                                {!isFullscreen() && (
+                                  <MenuItem
+                                    onClick={() =>
+                                      toggleFullscreen(document.body)
+                                    }
+                                  >
+                                    <Row>
+                                      <Col span={12}>fullscreen Mode</Col>
+                                    </Row>
+                                  </MenuItem>
+                                )}
                               </Menu>
                             </div>
                           );

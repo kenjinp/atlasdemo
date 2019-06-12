@@ -76,7 +76,7 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
           <div className="handle" />
           <Collapse bordered={false}>
             <CollapsePanel
-              header={<h3 className="title">Search Datasets</h3>}
+              header={<h3 className="title">Regions</h3>}
               key="datasets-search"
             >
               <Tabs defaultActiveKey="1">

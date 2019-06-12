@@ -21,10 +21,9 @@ import {
   HTTP_STATUSES,
   HTTP_STATUS_TYPE_KEYS,
 } from '../shared/store/actions/utils/statusCodes';
-import { stripBasename, hasExpired } from '../shared/utils';
+import { stripBasename } from '../shared/utils';
 
 const isSecure = !!process.env.SECURE;
-const cookieName = isSecure ? '__Secure-nexusAuth' : '_Secure-nexusAuth';
 
 // Create a express app
 const app: express.Express = express();

@@ -45,6 +45,7 @@
     "redux-thunk": "^2.3.0",
     "three": "^0.103.0",
     "threecontext": "^0.1.0",
+    "toggle-fullscreen": "^0.4.2",
     "volumeslicer": "^0.1.15"
   },
   "devDependencies": {

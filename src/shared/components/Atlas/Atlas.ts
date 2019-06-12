@@ -191,19 +191,11 @@ class Atlas {
     });
 
     // get the default one
-    const plane = (this.plane = planeCollection.getPlane());
-
-    const worldBoundaries = allenAverageModel.getWorldBoundaries();
-    const worldBoundariesSize = worldBoundaries.getSize();
-    const planeScale = plane.getScale();
-    const largestSide = Math.max(planeScale.x, planeScale.y, planeScale.z);
-    const planePosition = plane.getPosition();
+    this.plane = planeCollection.getPlane();
 
     // loading a mesh using its id
     // @ts-ignore
-    const regionCollection = (this.regionCollection = new RegionCollection(
-      threeContext
-    ));
+    this.regionCollection = new RegionCollection(threeContext);
   }
 }
 

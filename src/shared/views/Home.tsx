@@ -12,8 +12,8 @@ interface HomeProps {}
 
 const Home: React.FunctionComponent<HomeProps> = ({}) => {
   const [atlas, setAtlas] = React.useState();
-  const [showControls, setShowControls] = React.useState(true);
-  const [showPlane, setShowPlane] = React.useState(true);
+  const [showControls, setShowControls] = React.useState(false);
+  const [showPlane, setShowPlane] = React.useState(false);
   const [contrast, setContrast] = React.useState(1.0);
   const [opacity, setOpacity] = React.useState(1.0);
   const [brightness, setBrightness] = React.useState(0);
