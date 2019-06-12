@@ -49,8 +49,11 @@ class RegionCollection {
       });
     }
   }
-  getRegionDataPerName(acronym: string) {
+  getRegionDataPerAcronym(acronym: string) {
     return OneAllenBrainOntology.getRegionByAcronym(acronym);
+  }
+  getRegionDataPerId(id: number) {
+    return OneAllenBrainOntology.getRegionById(id);
   }
 }
 

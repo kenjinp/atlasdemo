@@ -53,7 +53,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       const copy = [...morphologyVisibility];
       copy.splice(index, 1);
       // we have to remove
-      // atlas.morphologyCollection.hideMorphologyById(name);
       return setMorphologyCollectionVisibility(copy);
     }
     // we hav to add
@@ -75,7 +74,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
         description: `Preparing morphology`,
       });
     }
-    // atlas.morphologyCollection.showMorphologyById(name);
     return setMorphologyCollectionVisibility([...morphologyVisibility, name]);
   };
 
@@ -118,11 +116,43 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     if (!atlas) {
       return;
     }
-
-    // setQueryResults(
-    //   atlas.morphologyCollection.getMorphologiesPerRegionQuery(query)
-    // );
-  }, [query, atlas]);
+    atlas.regionCollection.meshCollection.on(
+      'onMeshLoadError',
+      (error: Error, id: number) => {
+        const { name } = atlas.regionCollection.getRegionDataPerId(id);
+        notification.error({
+          key: `${id}`,
+          message: `Region ${name} Loading`,
+          description: error.message,
+        });
+      }
+    );
+    // @ts-ignore
+    atlas.regionCollection.meshCollection.on(
+      'onMeshLoadingProgress',
+      (id: number, step: string, progress: number) => {
+        const { name } = atlas.regionCollection.getRegionDataPerId(id);
+        const percent = ~~(progress * 100);
+        if (step === 'done') {
+          notification.open({
+            key: `${id}`,
+            message: `Region ${name} loaded`,
+            duration: 3,
+          });
+        } else {
+          notification.open({
+            key: `${id}`,
+            message: `Region ${name} ${step}`,
+            description: (
+              <div>
+                <Progress percent={percent} status="active" />
+              </div>
+            ),
+          });
+        }
+      }
+    );
+  }, [atlas]);
 
   React.useEffect(() => {
     if (!atlas) {
@@ -144,14 +174,6 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     }
     atlas.planeCollection.setContrast(contrast);
   }, [contrast, atlas]);
-
-  // React.useEffect(() => {
-  //   if (!atlas) {
-  //     return;
-  //   }
-
-  //   atlas.regionCollection.regionVisibility
-  // }, [opacity, atlas]);
 
   React.useEffect(() => {
     if (!atlas) {

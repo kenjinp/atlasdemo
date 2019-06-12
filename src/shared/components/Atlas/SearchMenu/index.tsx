@@ -25,14 +25,7 @@ interface SearchMenuProps {
 }
 
 const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
-  const {
-    queryResults,
-    queryFunction,
-    setMorphologyVisibility,
-    morphologyVisibility,
-    regionVisibility,
-    setRegionVisibility,
-  } = props;
+  const { regionVisibility, setRegionVisibility } = props;
 
   const mapRegionChildren = (children: any[]) => {
     return children.map(
@@ -75,116 +68,33 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
       <Draggable handle=".handle">
         <div className="search-menu">
           <div className="handle" />
-          <Collapse bordered={false}>
+          <Collapse bordered={false} defaultActiveKey={['datasets-search']}>
             <CollapsePanel
               header={<h3 className="title">Regions</h3>}
               key="datasets-search"
             >
-              <Tabs defaultActiveKey="1">
-                {/* <TabPane tab="Search" key="1">
-                  <div className="body">
-                    <Search
-                      className="search"
-                      placeholder="Search Datasets by Brain Region"
-                      onSearch={queryFunction}
-                      // style={{ width: 200 }}
-                    />
-                    <List
-                      size="small"
-                      className="list"
-                      dataSource={queryResults}
-                      renderItem={(morphologyCollection: any[]) => {
-                        const regionName = morphologyCollection[0].regionName;
-                        const regionAcronym =
-                          morphologyCollection[0].regionAcronym;
-                        return (
-                          <Collapse bordered={false}>
-                            <CollapsePanel
-                              header={regionName}
-                              key={regionName}
-                              extra={
-                                <div
-                                  onClick={(e: React.MouseEvent) => {
-                                    setRegionVisibility(regionAcronym);
-                                    e.stopPropagation();
-                                  }}
-                                >
-                                  <Checkbox
-                                    // onChange={(e: CheckboxChangeEvent) => {
-                                    //   setRegionVisibility(regionAcronym);
-                                    //   e.stopPropagation();
-                                    // }}
-                                    checked={
-                                      regionVisibility.indexOf(regionAcronym) >=
-                                      0
-                                    }
-                                  />
-                                </div>
-                              }
-                            >
-                              <List
-                                size="small"
-                                dataSource={morphologyCollection}
-                                renderItem={({ name }: { name: string }) => (
-                                  <List.Item>
-                                    <Tooltip title="morphology">
-                                      <Checkbox
-                                        onChange={() =>
-                                          setMorphologyVisibility(name)
-                                        }
-                                        checked={
-                                          morphologyVisibility.indexOf(name) >=
-                                          0
-                                        }
-                                      >
-                                        <SVG className="icon" src={neuron} />
-                                        {name}
-                                      </Checkbox>
-                                    </Tooltip>
-                                  </List.Item>
-                                )}
-                              />
-                            </CollapsePanel>
-                          </Collapse>
-                        );
-                      }}
-                    />
-                  </div>
-                </TabPane> */}
-                <TabPane tab="Tree" key="1">
-                  <div className="body">
-                    <Tree
-                      // onCheck={(selectedKeys: any, e) => {
-                      //   console.log(selectedKeys, e);
-                      //   // (selectedKeys as string[]).forEach(acronym => {
-                      //     setRegionVisibility(acronym);
-                      //   // });
-                      // }}
-                      defaultExpandedKeys={['HIP']}
-                    >
-                      <TreeNode
-                        // Show the hippocampus by default
-                        title={
-                          <div
-                            onClick={(e: React.MouseEvent) => {
-                              setRegionVisibility('root');
-                              e.stopPropagation();
-                            }}
-                          >
-                            Whole Brain{' '}
-                            <Checkbox
-                              checked={regionVisibility.indexOf('root') >= 0}
-                            />
-                          </div>
-                        }
-                        key="root"
+              <div className="body">
+                <Tree defaultExpandedKeys={regionVisibility}>
+                  <TreeNode
+                    title={
+                      <div
+                        onClick={(e: React.MouseEvent) => {
+                          setRegionVisibility('root');
+                          e.stopPropagation();
+                        }}
                       >
-                        {mapRegionChildren(data.children)}
-                      </TreeNode>
-                    </Tree>
-                  </div>
-                </TabPane>
-              </Tabs>
+                        Whole Brain{' '}
+                        <Checkbox
+                          checked={regionVisibility.indexOf('root') >= 0}
+                        />
+                      </div>
+                    }
+                    key="root"
+                  >
+                    {mapRegionChildren(data.children)}
+                  </TreeNode>
+                </Tree>
+              </div>
             </CollapsePanel>
           </Collapse>
         </div>
