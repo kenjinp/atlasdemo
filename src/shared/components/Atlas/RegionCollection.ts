@@ -8,69 +8,19 @@ import OneAllenBrainOntology from 'oneallenbrainontology';
 class RegionCollection {
   private meshCollection: any;
   constructor(threeContext: ThreeContext) {
-    const mc = (this.meshCollection = new MeshCollection(threeContext));
-
-    /**
-     * Loads the top level brain region mesh
-     */
-    function loadRootRegionMesh() {
-      const root = OneAllenBrainOntology.getRootNode();
-      console.log({ root });
-      displayRegionById(root.id, true);
-    }
-
-    /**
-     * Display a brain region given its id. If the brain region mesh was never loaded,
-     * it will.
-     * @param {string|number} id - id of the brain region
-     * @param {boolean} focusOn - if true, direct the camera towards the center of this brain region
-     */
-    function displayRegionById(id: string, focusOn = false) {
-      const regionData = OneAllenBrainOntology.getRegionById(id);
-
-      if (regionData === null) {
-        console.warn(`The region with id ${id} does not exist.`);
-        return;
-      }
-
-      // if already loaded, we show
-      if (mc.has(id)) {
-        mc.show(id);
-
-        // if not already loaded, we load it
-      } else {
-        const meshUrl = `datasets/regionMeshes/${id}.obj`;
-        const color = `#${regionData.color_hex_triplet}`;
-
-        mc.loadMeshFromUrl(meshUrl, {
-          color,
-          focusOn,
-          id,
-        });
-      }
-    }
-
-    /**
-     * Hides the mesh of a brain region given its id.
-     * @param {numner|string} id - id of the brain region
-     */
-    function hideMeshRegionById(id: string) {
-      if (mc.has(id)) {
-        mc.hide(id);
-      }
-    }
-
-    loadRootRegionMesh();
+    this.meshCollection = new MeshCollection(threeContext);
   }
   hideRegionPerAcronym(acronym: string) {
     const regionData = OneAllenBrainOntology.getRegionByAcronym(acronym);
+    console.log('hide stuff', acronym, regionData, this.meshCollection);
 
     if (regionData === null) {
       console.warn(`The region with acronym ${acronym} does not exist.`);
       return;
     }
-    if (this.meshCollection.has(acronym)) {
-      this.meshCollection.hide(acronym);
+    const { id } = regionData;
+    if (this.meshCollection.has(id)) {
+      this.meshCollection.hide(id);
     }
   }
   showRegionPerAcronym(acronym: string) {
@@ -81,7 +31,7 @@ class RegionCollection {
       return;
     }
 
-    const id = regionData.id;
+    const { id } = regionData;
 
     // if already loaded, we show
     if (this.meshCollection.has(id)) {
@@ -102,7 +52,6 @@ class RegionCollection {
   getRegionDataPerName(acronym: string) {
     return OneAllenBrainOntology.getRegionByAcronym(acronym);
   }
-  setOpacity(opacity: number, id: string) {}
 }
 
 export default RegionCollection;

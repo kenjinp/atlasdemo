@@ -52,6 +52,7 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
             title={
               <div
                 onClick={(e: React.MouseEvent) => {
+                  console.log(acronym);
                   setRegionVisibility(acronym);
                   e.stopPropagation();
                 }}
@@ -153,14 +154,16 @@ const SearchMenu: React.FunctionComponent<SearchMenuProps> = props => {
                 <TabPane tab="Tree" key="1">
                   <div className="body">
                     <Tree
-                    // onCheck={(selectedKeys: any, e) => {
-                    //   console.log(selectedKeys, e);
-                    //   // (selectedKeys as string[]).forEach(acronym => {
-                    //     setRegionVisibility(acronym);
-                    //   // });
-                    // }}
+                      // onCheck={(selectedKeys: any, e) => {
+                      //   console.log(selectedKeys, e);
+                      //   // (selectedKeys as string[]).forEach(acronym => {
+                      //     setRegionVisibility(acronym);
+                      //   // });
+                      // }}
+                      defaultExpandedKeys={['HIP']}
                     >
                       <TreeNode
+                        // Show the hippocampus by default
                         title={
                           <div
                             onClick={(e: React.MouseEvent) => {

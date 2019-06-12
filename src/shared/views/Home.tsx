@@ -27,7 +27,7 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
   ] = React.useState<string[]>([]);
   const [regionVisibility, setRegionCollectionVisibility] = React.useState<
     string[]
-  >(['root']);
+  >(['root', 'HIP']);
 
   if (atlas && !colorMapStyles.length) {
     setColorMapStyles(atlas.plane.getColormapStyles());
@@ -158,10 +158,8 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       return;
     }
     regionVisibility.forEach(acronym => {
-      const data = atlas.regionCollection.getRegionDataPerName(acronym);
-      if (data) {
-        atlas.regionCollection.setOpacity(opacity, data.id);
-      }
+      console.log('change region visibility', acronym);
+      atlas.regionCollection.showRegionPerAcronym(acronym);
     });
   }, [regionVisibility, atlas, opacity]);
 
