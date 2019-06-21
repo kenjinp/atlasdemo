@@ -177,3 +177,14 @@ export type Procedure = (...args: any[]) => void;
 export type Options = {
   isImmediate: boolean;
 };
+
+export const removeItemFromList = (list: any[], item: any) => {
+  const index = list.indexOf(item);
+  if (index >= 0) {
+    const copy = [...list];
+    copy.splice(index, 1);
+    // we have to remove
+    return copy;
+  }
+  return list;
+};

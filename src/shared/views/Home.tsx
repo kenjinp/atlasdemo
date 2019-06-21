@@ -7,6 +7,7 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import AtlasContextMenu from '../components/Atlas/ContextMenu';
 import SearchMenu from '../components/Atlas/SearchMenu';
 import { notification, Progress } from 'antd';
+import { removeItemFromList } from '../utils';
 
 interface HomeProps {}
 
@@ -28,12 +29,19 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
   const [regionVisibility, setRegionCollectionVisibility] = React.useState<
     string[]
   >(['root', 'HIP']);
+  const [loadingRegionList, setLoadingRegionList] = React.useState<string[]>(
+    []
+  );
 
   if (atlas && !colorMapStyles.length) {
     setColorMapStyles(atlas.plane.getColormapStyles());
   }
 
   const setRegionVisibility = (acronym: string) => {
+    // Do nothing if it's in the queue to load!
+    if (loadingRegionList.includes(acronym)) {
+      return;
+    }
     const index = regionVisibility.indexOf(acronym);
     if (index >= 0) {
       const copy = [...regionVisibility];
@@ -43,18 +51,16 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
       return setRegionCollectionVisibility(copy);
     }
     // we hav to add
+    // setLoadingRegionList([...loadingRegionList, acronym]);
     atlas.regionCollection.showRegionPerAcronym(acronym);
     return setRegionCollectionVisibility([...regionVisibility, acronym]);
   };
 
   const setMorphologyVisibility = (name: string) => {
-    const index = morphologyVisibility.indexOf(name);
-    if (index >= 0) {
-      const copy = [...morphologyVisibility];
-      copy.splice(index, 1);
-      // we have to remove
-      return setMorphologyCollectionVisibility(copy);
-    }
+    setMorphologyCollectionVisibility(
+      removeItemFromList(morphologyVisibility, name)
+    );
+
     // we hav to add
     const lowerCaseName = `${name}`.toLowerCase();
 
@@ -119,7 +125,8 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     atlas.regionCollection.meshCollection.on(
       'onMeshLoadError',
       (error: Error, id: number) => {
-        const { name } = atlas.regionCollection.getRegionDataPerId(id);
+        const { name, acronym } = atlas.regionCollection.getRegionDataPerId(id);
+        // setLoadingRegionList(removeItemFromList(loadingRegionList, acronym));
         notification.error({
           key: `${id}`,
           message: `Region ${name} Loading`,
@@ -131,9 +138,11 @@ const Home: React.FunctionComponent<HomeProps> = ({}) => {
     atlas.regionCollection.meshCollection.on(
       'onMeshLoadingProgress',
       (id: number, step: string, progress: number) => {
-        const { name } = atlas.regionCollection.getRegionDataPerId(id);
+        const { name, acronym } = atlas.regionCollection.getRegionDataPerId(id);
+
         const percent = ~~(progress * 100);
         if (step === 'done') {
+          // setLoadingRegionList(removeItemFromList(loadingRegionList, acronym));
           notification.open({
             key: `${id}`,
             message: `Region ${name} loaded`,
