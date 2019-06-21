@@ -1,7 +1,7 @@
 {
   "name": "atlasdemo",
   "description": "The Blue Brain Cell Atlas | Search and discover neuroscience datasets in the context of a 3D atlas",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "author": "Blue Brain Project",
   "license": "Apache-2.0",
   "main": "dist/server.js",
